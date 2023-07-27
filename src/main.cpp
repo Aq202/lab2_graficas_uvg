@@ -11,6 +11,11 @@ int main(int argc, char *argv[])
     // Crear el juego
     GameOfLife game;
 
+
+    //game.createBeacon(10,10);
+    //game.createBlinker(100, 80);
+    game.createHWSS(100, 30);
+
     // Bucle principal
     bool quit = false;
     while (!quit)
