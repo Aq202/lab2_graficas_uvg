@@ -71,6 +71,18 @@ public:
 
   bool isCellAlive(int x, int y) const { return gameGrid[x][y]; }
 
+  void createPattern(const std::vector<std::pair<int, int>> &patternCoordinates)
+  {
+    for (const auto &coord : patternCoordinates)
+    {
+      int coordX = coord.first;
+      int coordY = coord.second;
+
+       if (coordX>= 0 && coordX < GRID_WIDTH && coordY >= 0 && coordY < GRID_HEIGHT)
+      gameGrid[coordX][coordY] = true;
+    }
+  }
+
   void createBlock(const int x, const int y)
   {
     std::vector<std::pair<int, int>> pattern = {
@@ -112,17 +124,6 @@ public:
     createPattern(LWSS_pattern);
   }
 
-  void createPattern(const std::vector<std::pair<int, int>> &patternCoordinates)
-  {
-    for (const auto &coord : patternCoordinates)
-    {
-      int coordX = coord.first;
-      int coordY = coord.second;
-
-      gameGrid[coordX][coordY] = true;
-    }
-  }
-
   void createPenta(const int x, const int y)
   {
     std::vector<std::pair<int, int>> pattern = {
@@ -141,6 +142,48 @@ public:
         {1, 1}, {1, 4}, {2, 5}, {3, 1}, {3, 5}, {4, 2}, {4, 3}, {4, 4}, {4, 5}};
     createPattern(pattern);
   }
+
+  void generateRandomOrganisms(int numOrganisms, int semilla = 20) {
+    srand(semilla); 
+
+    for (int i = 0; i < numOrganisms; i++) {
+
+        // Obtener puntos dentro de la pantalla
+        int x = rand() % GRID_WIDTH + 1; 
+        int y = rand() % GRID_HEIGHT + 1;
+
+        int organism = rand() % 8 + 1; // random entre 1 y 8
+
+        switch (organism) {
+            case 1:
+                createBlock(x, y);
+                break;
+            case 2:
+                createBeacon(x, y);
+                break;
+            case 3:
+                createBlinker(x, y);
+                break;
+            case 4:
+                createToad(x, y);
+                break;
+            case 5:
+                createGlider(x, y);
+                break;
+            case 6:
+                createLWSS(x, y);
+                break;
+            case 7:
+                createPenta(x, y);
+                break;
+            case 8:
+                createHWSS(x, y);
+                break;
+            default:
+                break;
+        }
+    }
+}
 
 private:
   std::vector<std::vector<bool>> gameGrid;

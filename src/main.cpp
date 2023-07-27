@@ -5,16 +5,14 @@
 int main(int argc, char *argv[])
 {
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window *window = SDL_CreateWindow("Conway's Game of Life", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    SDL_Window *window = SDL_CreateWindow("Conway's Game of Life", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
 
     // Crear el juego
     GameOfLife game;
 
 
-    //game.createBeacon(10,10);
-    //game.createBlinker(100, 80);
-    game.createHWSS(100, 30);
+    game.generateRandomOrganisms(500, 4);
 
     // Bucle principal
     bool quit = false;
